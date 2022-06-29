@@ -11,8 +11,6 @@ require("core-js/modules/es.json.stringify.js");
 
 var _ImageResizer = _interopRequireDefault(require("../utils/ImageResizer"));
 
-var _FeathersClient = _interopRequireDefault(require("../clients/FeathersClient"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const isIPFS = require('is-ipfs');
@@ -22,9 +20,9 @@ const axios = require('axios').default;
 const url = require('url');
 
 class IpfsService {
-  constructor(config) {
-    this.config = config;
-    this.feathersClient = new _FeathersClient.default(config);
+  constructor(commonsContext) {
+    this.config = commonsContext.config;
+    this.feathersClient = commonsContext.feathersClient;
   }
   /**
    * Upload a json object or Blob to ipfs

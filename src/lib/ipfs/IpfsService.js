@@ -1,15 +1,13 @@
-import ImageTools from '../helpers/ImageResizer';
-import FeathersClient from '../clients/FeathersClient';
-
+import ImageTools from '../utils/ImageResizer';
 const isIPFS = require('is-ipfs');
 const axios = require('axios').default;
 const url = require('url');
 
 class IpfsService {
 
-  constructor(config) {
-    this.config = config;
-    this.feathersClient = new FeathersClient(config);
+  constructor(commonsContext) {
+    this.config = commonsContext.config;
+    this.feathersClient = commonsContext.feathersClient;
   }
 
   /**

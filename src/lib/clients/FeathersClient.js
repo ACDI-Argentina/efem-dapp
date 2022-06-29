@@ -8,12 +8,13 @@ import rx from 'feathers-reactive';
 
 class FeathersClient {
 
-  constructor(config) {
+  constructor(commonsContext) {
 
-    const restClient = rest(config.feathersConnection);
+    this.config = commonsContext.config;
+    const restClient = rest(this.config.feathersConnection);
     const fetch = require('node-fetch');
 
-    const socket = io(config.feathersConnection, {
+    const socket = io(this.config.feathersConnection, {
       transports: ['websocket'],
     });
     // socket IO error events

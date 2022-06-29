@@ -5,16 +5,16 @@ import WalletConnectProvider from "@walletconnect/web3-provider"
 import { BehaviorSubject } from 'rxjs'
 import IpfsService from '../services/IpfsService'
 import Wallet from '../models/Wallet'
-import { history } from '../helpers/History'
+import { history } from '../utils/History'
 
 /**
  * Manager encargado de manejar el objeto Web3.
  */
 class Web3Manager {
 
-  constructor(config) {
-    this.config = config;
-    this.ipfsService = new IpfsService(config);
+  constructor(commonsContext) {
+    this.config = commonsContext.config;
+    this.ipfsService = new IpfsService(commonsContext);
     this.connectWeb3ByHttp();
     this.getWeb3().subscribe(async web3 => {
       await this.handleWeb3Changed(web3);
@@ -161,7 +161,7 @@ class Web3Manager {
       });
 
       const provider = await web3Modal.connect();
-      
+
       let web3;
 
       if (provider instanceof WalletConnectProvider) {
@@ -261,7 +261,7 @@ class Web3Manager {
    * 
    * @returns web3 
    */
-  getWeb3() {
+  getWeb3 = () => {
     return this.web3Subject.asObservable();
   }
 
@@ -270,7 +270,7 @@ class Web3Manager {
    * 
    * @returns accountAddress 
    */
-  getAccountAddress() {
+  getAccountAddress = () => {
     return this.accountAddressSubject.asObservable();
   }
 }

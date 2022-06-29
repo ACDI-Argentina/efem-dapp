@@ -25,7 +25,7 @@ var _IpfsService = _interopRequireDefault(require("../services/IpfsService"));
 
 var _Wallet = _interopRequireDefault(require("../models/Wallet"));
 
-var _History = require("../helpers/History");
+var _History = require("../utils/History");
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -39,7 +39,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * Manager encargado de manejar el objeto Web3.
  */
 class Web3Manager {
-  constructor(config) {
+  constructor(commonsContext) {
     _defineProperty(this, "connectWeb3ByHttp", () => {
       const provider = new _web3ProvidersHttp.default(this.config.network.nodeUrl, {
         keepAlive: true,
@@ -201,24 +201,16 @@ class Web3Manager {
       }
     });
 
-    this.config = config;
-    this.ipfsService = new _IpfsService.default(config);
-    /* this.web3Modal = new Web3Modal({
-       providerOptions: {
-         // read more about providers setup in https://github.com/web3Modal/web3modal/
-         walletconnect: {
-           package: WalletConnectProvider, // setup wallet connect for mobile wallet support
-           options: {
-             rpc: {
-               30: 'https://public-node.rsk.co',
-               31: 'https://public-node.testnet.rsk.co',
-               33: this.config.network.nodeUrl,
-             },
-           },
-         },
-       }
-     });*/
+    _defineProperty(this, "getWeb3", () => {
+      return this.web3Subject.asObservable();
+    });
 
+    _defineProperty(this, "getAccountAddress", () => {
+      return this.accountAddressSubject.asObservable();
+    });
+
+    this.config = commonsContext.config;
+    this.ipfsService = new _IpfsService.default(commonsContext);
     this.connectWeb3ByHttp();
     this.getWeb3().subscribe(async web3 => {
       await this.handleWeb3Changed(web3);
@@ -280,25 +272,6 @@ class Web3Manager {
     this.web3Subject.next(web3);
     console.log('[Setup Web3] Web3.', web3);
     return web3;
-  }
-
-  /**
-   * Obtiene la instancia de Web3 actual.
-   * 
-   * @returns web3 
-   */
-  getWeb3() {
-    return this.web3Subject.asObservable();
-  }
-  /**
-   * Obtiene la dirección de la cuenta actual.
-   * 
-   * @returns accountAddress 
-   */
-
-
-  getAccountAddress() {
-    return this.accountAddressSubject.asObservable();
   }
 
 }

@@ -3,6 +3,18 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+Object.defineProperty(exports, "AccountManager", {
+  enumerable: true,
+  get: function get() {
+    return _AccountManager.default;
+  }
+});
+Object.defineProperty(exports, "AdminContractApi", {
+  enumerable: true,
+  get: function get() {
+    return _AdminContractApi.default;
+  }
+});
 Object.defineProperty(exports, "Badge", {
   enumerable: true,
   get: function get() {
@@ -15,10 +27,22 @@ Object.defineProperty(exports, "Button", {
     return _Button.default;
   }
 });
+Object.defineProperty(exports, "ERC20ContractApi", {
+  enumerable: true,
+  get: function get() {
+    return _ERC20ContractApi.default;
+  }
+});
 Object.defineProperty(exports, "FeathersClient", {
   enumerable: true,
   get: function get() {
     return _FeathersClient.default;
+  }
+});
+Object.defineProperty(exports, "FeathersUsersClient", {
+  enumerable: true,
+  get: function get() {
+    return _FeathersUsersClient.default;
   }
 });
 Object.defineProperty(exports, "History", {
@@ -39,6 +63,18 @@ Object.defineProperty(exports, "IpfsService", {
     return _IpfsService.default;
   }
 });
+Object.defineProperty(exports, "TransactionsManager", {
+  enumerable: true,
+  get: function get() {
+    return _TransactionsManager.default;
+  }
+});
+Object.defineProperty(exports, "UserIpfsConnector", {
+  enumerable: true,
+  get: function get() {
+    return _UserIpfsConnector.default;
+  }
+});
 Object.defineProperty(exports, "Wallet", {
   enumerable: true,
   get: function get() {
@@ -51,6 +87,12 @@ Object.defineProperty(exports, "Web3Manager", {
     return _Web3Manager.default;
   }
 });
+Object.defineProperty(exports, "Web3Utils", {
+  enumerable: true,
+  get: function get() {
+    return _Web3Utils.default;
+  }
+});
 
 var _Wallet = _interopRequireDefault(require("./models/Wallet"));
 
@@ -58,14 +100,28 @@ var _Badge = _interopRequireDefault(require("./components/Badge"));
 
 var _Button = _interopRequireDefault(require("./components/Button"));
 
-var _IpfsService = _interopRequireDefault(require("./services/IpfsService"));
+var _IpfsService = _interopRequireDefault(require("./ipfs/IpfsService"));
 
-var _History = _interopRequireDefault(require("./helpers/History"));
+var _UserIpfsConnector = _interopRequireDefault(require("./ipfs/UserIpfsConnector"));
 
-var _ImageResizer = _interopRequireDefault(require("./helpers/ImageResizer"));
+var _History = _interopRequireDefault(require("./utils/History"));
+
+var _ImageResizer = _interopRequireDefault(require("./utils/ImageResizer"));
 
 var _FeathersClient = _interopRequireDefault(require("./clients/FeathersClient"));
 
+var _FeathersUsersClient = _interopRequireDefault(require("./clients/FeathersUsersClient"));
+
 var _Web3Manager = _interopRequireDefault(require("./managers/Web3Manager"));
+
+var _AccountManager = _interopRequireDefault(require("./managers/AccountManager"));
+
+var _TransactionsManager = _interopRequireDefault(require("./managers/TransactionsManager"));
+
+var _ERC20ContractApi = _interopRequireDefault(require("./blockchain/api/ERC20ContractApi"));
+
+var _AdminContractApi = _interopRequireDefault(require("./blockchain/api/AdminContractApi"));
+
+var _Web3Utils = _interopRequireDefault(require("./blockchain/utils/Web3Utils"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

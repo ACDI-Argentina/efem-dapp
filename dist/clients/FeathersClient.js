@@ -22,12 +22,13 @@ var _feathersReactive = _interopRequireDefault(require("feathers-reactive"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class FeathersClient {
-  constructor(config) {
-    const restClient = (0, _restClient.default)(config.feathersConnection);
+  constructor(commonsContext) {
+    this.config = commonsContext.config;
+    const restClient = (0, _restClient.default)(this.config.feathersConnection);
 
     const fetch = require('node-fetch');
 
-    const socket = (0, _socket.default)(config.feathersConnection, {
+    const socket = (0, _socket.default)(this.config.feathersConnection, {
       transports: ['websocket']
     }); // socket IO error events
 

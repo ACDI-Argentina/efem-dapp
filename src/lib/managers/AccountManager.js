@@ -1,7 +1,4 @@
-import currentUserUtils from 'redux/utils/currentUserUtils';
 import { BehaviorSubject } from 'rxjs'
-import erc20ContractApi from '../../lib/blockchain/ERC20ContractApi';
-import web3Manager from './Web3Manager';
 import Account from 'models/Account';
 import config from 'configuration';
 import BigNumber from 'bignumber.js';
@@ -11,12 +8,14 @@ import BigNumber from 'bignumber.js';
  */
 class AccountManager {
 
-  constructor() {
+  constructor(commonsContext) {
+    this.erc20ContractApi = commonsContext.erc20ContractApi;
+    this.web3Manager = commonsContext.web3Manager;
     this.accountSubject = new BehaviorSubject(new Account());
-    web3Manager.getWeb3().subscribe(web3 => {
+    this.web3Manager.getWeb3().subscribe(web3 => {
       this.web3 = web3;
     });
-    web3Manager.getAccountAddress().subscribe(async accountAddress => {
+    this.web3Manager.getAccountAddress().subscribe(async accountAddress => {
       await this.loadAccount(accountAddress);
     });
   }
@@ -25,13 +24,11 @@ class AccountManager {
     if (accountAddress == null) {
       // La cuenta no está definida, por lo que se reinicializa la cuenta.
       this.accountSubject.next(new Account());
-      currentUserUtils.clearCurrentUser();
     } else {
       console.log(`[Account] Carga de cuenta conectada: ${accountAddress}`);
       let account = this.accountSubject.getValue();
       account.address = accountAddress;
       this.accountSubject.next(account);
-      currentUserUtils.loadCurrentUser(accountAddress);
       await this.updateAccountBalances(accountAddress);
     }    
   }
@@ -66,7 +63,7 @@ class AccountManager {
       try {
         if (config.tokens[tokenKey].isNative === false) {
           let tokenAddress = config.tokens[tokenKey].address;
-          let tokenBalance = await erc20ContractApi.getBalance(tokenAddress, accountAddress);
+          let tokenBalance = await this.erc20ContractApi.getBalance(tokenAddress, accountAddress);
           // Solo se actualiza si cambió el balance.
           if (!tokenBalance.isEqualTo(account.tokenBalances[tokenAddress])) {
             account.tokenBalances[tokenAddress] = tokenBalance;
@@ -80,7 +77,6 @@ class AccountManager {
     });
 
     if (changed === true) {
-      currentUserUtils.updateCurrentUserBalance(account.balance, account.tokenBalances);
       this.accountSubject.next(account);
     }
   };
@@ -95,4 +91,4 @@ class AccountManager {
   }
 }
 
-export default new AccountManager();
+export default AccountManager;
