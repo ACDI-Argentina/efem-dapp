@@ -32,9 +32,9 @@ class FeathersClient {
       transports: ['websocket']
     }); // socket IO error events
 
-    socket.on('connect_error', _e => console.log('Could not connect to FeatherJS'));
-    socket.on('connect_timeout', _e => console.log('Could not connect to FeatherJS: Timeout'));
-    socket.on('reconnect_attempt', _e => console.log('Trying to reconnect to FeatherJS: Timeout'));
+    socket.on('connect_error', _e => console.log("Could not connect to FeatherJS: ".concat(this.config.feathersConnection)));
+    socket.on('connect_timeout', _e => console.log("Could not connect to FeatherJS. Timeout: ".concat(this.config.feathersConnection)));
+    socket.on('reconnect_attempt', _e => console.log("Trying to reconnect to FeatherJS. Timeout: ".concat(this.config.feathersConnection)));
     const feathersRest = (0, _feathers.default)().configure(restClient.fetch(fetch)).configure((0, _authenticationClient.default)({
       storage: _localforage.default
     })).configure((0, _feathersReactive.default)({

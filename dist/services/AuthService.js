@@ -28,14 +28,14 @@ class AuthService {
       return new _rxjs.Observable(async subscriber => {
         if (currentUser.registered) {
           // Solamente se autentica un usuario que tiene la cuenta registrada en el sistema.
-          const accessToken = await this.feathersUsersClient.passport.getJWT();
+          const accessToken = await this.feathersUsersClient.getClient().passport.getJWT();
 
           if (accessToken) {
-            const payload = await this.feathersUsersClient.passport.verifyJWT(accessToken);
+            const payload = await this.feathersUsersClient.getClient().passport.verifyJWT(accessToken);
 
             if (this.web3Utils.addressEquals(currentUser.address, payload.userId)) {
               try {
-                await this.feathersUsersClient.authenticate();
+                await this.feathersUsersClient.getClient().authenticate();
                 console.log("[Auth Service] Autenticaci\xF3n con JWT almacenado.");
                 currentUser.authenticated = true;
               } catch (error) {
@@ -57,7 +57,7 @@ class AuthService {
           };
 
           try {
-            await this.feathersUsersClient.authenticate(authData);
+            await this.feathersUsersClient.getClient().authenticate(authData);
             currentUser.authenticated = true;
           } catch (response) {
             // normal flow will issue a 401 with a challenge message we need to sign and send to
@@ -67,7 +67,7 @@ class AuthService {
                 const msg = response.data.replace('Challenge =', '').trim();
                 const signature = await this.web3.eth.personal.sign(msg, currentUser.address);
                 authData.signature = signature;
-                await this.feathersUsersClient.authenticate(authData);
+                await this.feathersUsersClient.getClient().authenticate(authData);
                 currentUser.authenticated = true;
               } catch (error) {
                 console.error("[Auth Service] Error autenticando con mensaje firmado.", error);
@@ -87,7 +87,7 @@ class AuthService {
     });
 
     _defineProperty(this, "logout", async () => {
-      await this.feathersUsersClient.logout();
+      await this.feathersUsersClient.getClient().logout();
     });
 
     this.web3Manager = commonsContext.web3Manager;

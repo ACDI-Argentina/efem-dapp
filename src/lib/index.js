@@ -1,7 +1,11 @@
 import Wallet from './models/Wallet'
+import User from './models/User'
 
 import Badge from './components/Badge';
 import Button from './components/Button';
+
+import UserService from './services/UserService'
+import AuthService from './services/AuthService'
 
 import IpfsService from './ipfs/IpfsService';
 import UserIpfsConnector from './ipfs/UserIpfsConnector';
@@ -22,12 +26,16 @@ import Web3Utils from './blockchain/utils/Web3Utils';
 
 export {
     Wallet,
+    User,
     Badge,
     Button,
 
     FeathersClient,
     FeathersUsersClient,
 
+    UserService,
+    AuthService,
+    
     IpfsService,
     UserIpfsConnector,
     

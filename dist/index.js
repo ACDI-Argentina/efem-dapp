@@ -15,6 +15,12 @@ Object.defineProperty(exports, "AdminContractApi", {
     return _AdminContractApi.default;
   }
 });
+Object.defineProperty(exports, "AuthService", {
+  enumerable: true,
+  get: function get() {
+    return _AuthService.default;
+  }
+});
 Object.defineProperty(exports, "Badge", {
   enumerable: true,
   get: function get() {
@@ -69,10 +75,22 @@ Object.defineProperty(exports, "TransactionsManager", {
     return _TransactionsManager.default;
   }
 });
+Object.defineProperty(exports, "User", {
+  enumerable: true,
+  get: function get() {
+    return _User.default;
+  }
+});
 Object.defineProperty(exports, "UserIpfsConnector", {
   enumerable: true,
   get: function get() {
     return _UserIpfsConnector.default;
+  }
+});
+Object.defineProperty(exports, "UserService", {
+  enumerable: true,
+  get: function get() {
+    return _UserService.default;
   }
 });
 Object.defineProperty(exports, "Wallet", {
@@ -96,9 +114,15 @@ Object.defineProperty(exports, "Web3Utils", {
 
 var _Wallet = _interopRequireDefault(require("./models/Wallet"));
 
+var _User = _interopRequireDefault(require("./models/User"));
+
 var _Badge = _interopRequireDefault(require("./components/Badge"));
 
 var _Button = _interopRequireDefault(require("./components/Button"));
+
+var _UserService = _interopRequireDefault(require("./services/UserService"));
+
+var _AuthService = _interopRequireDefault(require("./services/AuthService"));
 
 var _IpfsService = _interopRequireDefault(require("./ipfs/IpfsService"));
 

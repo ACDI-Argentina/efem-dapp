@@ -1,4 +1,8 @@
+import feathers from '@feathersjs/feathers';
+import socketio from '@feathersjs/socketio-client';
+import auth from '@feathersjs/authentication-client';
 import io from 'socket.io-client/dist/socket.io';
+import localforage from 'localforage';
 
 class FeathersUsersClient {
 
@@ -11,9 +15,9 @@ class FeathersUsersClient {
       transports: ['websocket'],
     });
     // socket IO error events
-    socket.on('connect_error', _e => console.log('Could not connect to Users FeatherJS'));
-    socket.on('connect_timeout', _e => console.log('Could not connect to Users FeatherJS: Timeout'));
-    socket.on('reconnect_attempt', _e => console.log('Trying to reconnect to Users FeatherJS: Timeout'));
+    socket.on('connect_error', _e => console.log(`Could not connect to Users FeatherJS: ${this.config.feathersUsersConnection}`));
+    socket.on('connect_timeout', _e => console.log(`Could not connect to Users FeatherJS. Timeout: ${this.config.feathersUsersConnection}`));
+    socket.on('reconnect_attempt', _e => console.log(`Trying to reconnect to Users FeatherJS. Timeout: ${this.config.feathersUsersConnection}`));
 
     this.client = feathers();
     this.client.configure(socketio(socket, { timeout: 10000 }));
@@ -21,7 +25,7 @@ class FeathersUsersClient {
 
     this.client.on('authenticated', async auth => {
       try {
-        await this.feathersClient.authenticate(auth);
+        await this.feathersClient.getClient().authenticate(auth);
       } catch (err) {
         console.error(`[Feathers Users Client] Error autenticando Feather Client.`, err);
         throw err;
@@ -30,12 +34,16 @@ class FeathersUsersClient {
 
     this.client.on('logout', async () => {
       try {
-        await this.feathersClient.logout();
+        await this.feathersClient.getClient().logout();
       } catch (err) {
         console.error(`[Feathers Users Client] Error en logout de Feather Client.`, err);
         throw err;
       }
     });
+  }
+
+  getClient() {
+    return this.client;
   }
 }
 

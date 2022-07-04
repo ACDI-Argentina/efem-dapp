@@ -26,7 +26,7 @@ class UserService {
         user.infoCid = infoCid;
 
         if (user.registered === false) {
-          await this.feathersClient.service('users').create(user.toFeathers());
+          await this.feathersClient.getClient().service('users').create(user.toFeathers());
           // Nuevo usuario     
           user.registered = true;
           /*messageUtils.addMessageSuccess({
@@ -35,7 +35,7 @@ class UserService {
           });*/
         } else {
           // Actualización de usuario
-          await this.feathersClient.service('users').update(user.address, user.toFeathers());
+          await this.feathersClient.getClient().service('users').update(user.address, user.toFeathers());
           /*messageUtils.addMessageSuccess({
             text: `Su perfil ha sido actualizado.`
           });*/
@@ -64,7 +64,7 @@ class UserService {
   loadUsers = () => {
     return new Observable(async subscriber => {
       const users = [];
-      const { data: usersData } = await this.feathersClient.service("users").find();
+      const { data: usersData } = await this.feathersClient.getClient().service("users").find();
       for (let i = 0; i < usersData.length; i++) {
         const user = await this.loadUserByFeathersData(usersData[i]);
         users.push(user);
@@ -84,7 +84,7 @@ class UserService {
 
       try {
 
-        const userData = await this.feathersClient.service('/users').get(address);
+        const userData = await this.feathersClient.getClient().service('/users').get(address);
         const user = await this.loadUserByFeathersData(userData);
         subscriber.next(user);
 
@@ -151,7 +151,7 @@ class UserService {
         let infoCid = await this.userIpfsConnector.upload(user);
         user.infoCid = infoCid;
 
-        await this.feathersClient.service('users').update(user.address, user.toFeathers());
+        await this.feathersClient.getClient().service('users').update(user.address, user.toFeathers());
 
         // ---------------------
         // Tratamiento de roles.
