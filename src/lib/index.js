@@ -12,6 +12,7 @@ import UserIpfsConnector from './ipfs/UserIpfsConnector';
 
 import History from './utils/History';
 import ImageResizer from './utils/ImageResizer';
+import ValidatorUtils from './utils/ValidatorUtils';
 
 import FeathersClient from './clients/FeathersClient';
 import FeathersUsersClient from './clients/FeathersUsersClient';
@@ -19,6 +20,7 @@ import FeathersUsersClient from './clients/FeathersUsersClient';
 import Web3Manager from './managers/Web3Manager';
 import AccountManager from './managers/AccountManager';
 import TransactionsManager from './managers/TransactionsManager';
+import MessageManager from './managers/MessageManager';
 
 import ERC20ContractApi from './blockchain/api/ERC20ContractApi';
 import AdminContractApi from './blockchain/api/AdminContractApi';
@@ -41,10 +43,12 @@ export {
     
     History,
     ImageResizer,
+    ValidatorUtils,
 
     Web3Manager,
     AccountManager,
     TransactionsManager,
+    MessageManager,
 
     ERC20ContractApi,
     AdminContractApi,

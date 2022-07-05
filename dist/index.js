@@ -69,6 +69,12 @@ Object.defineProperty(exports, "IpfsService", {
     return _IpfsService.default;
   }
 });
+Object.defineProperty(exports, "MessageManager", {
+  enumerable: true,
+  get: function get() {
+    return _MessageManager.default;
+  }
+});
 Object.defineProperty(exports, "TransactionsManager", {
   enumerable: true,
   get: function get() {
@@ -91,6 +97,12 @@ Object.defineProperty(exports, "UserService", {
   enumerable: true,
   get: function get() {
     return _UserService.default;
+  }
+});
+Object.defineProperty(exports, "ValidatorUtils", {
+  enumerable: true,
+  get: function get() {
+    return _ValidatorUtils.default;
   }
 });
 Object.defineProperty(exports, "Wallet", {
@@ -132,6 +144,8 @@ var _History = _interopRequireDefault(require("./utils/History"));
 
 var _ImageResizer = _interopRequireDefault(require("./utils/ImageResizer"));
 
+var _ValidatorUtils = _interopRequireDefault(require("./utils/ValidatorUtils"));
+
 var _FeathersClient = _interopRequireDefault(require("./clients/FeathersClient"));
 
 var _FeathersUsersClient = _interopRequireDefault(require("./clients/FeathersUsersClient"));
@@ -141,6 +155,8 @@ var _Web3Manager = _interopRequireDefault(require("./managers/Web3Manager"));
 var _AccountManager = _interopRequireDefault(require("./managers/AccountManager"));
 
 var _TransactionsManager = _interopRequireDefault(require("./managers/TransactionsManager"));
+
+var _MessageManager = _interopRequireDefault(require("./managers/MessageManager"));
 
 var _ERC20ContractApi = _interopRequireDefault(require("./blockchain/api/ERC20ContractApi"));
 

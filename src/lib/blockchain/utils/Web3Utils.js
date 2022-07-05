@@ -32,8 +32,8 @@ class Web3Utils {
   }
 
   addressEquals = (address1, address2) => {
-    let checksumAddress1 = toChecksumAddress(address1);
-    let checksumAddress2 = toChecksumAddress(address2);
+    let checksumAddress1 = this.toChecksumAddress(address1);
+    let checksumAddress2 = this.toChecksumAddress(address2);
     return checksumAddress1 !== null &&
       checksumAddress2 !== null &&
       checksumAddress1 === checksumAddress2;

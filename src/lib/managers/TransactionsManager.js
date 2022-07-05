@@ -2,7 +2,7 @@ import { BehaviorSubject } from 'rxjs'
 import Transaction from '../models/Transaction'
 
 /**
- * Manager encargado de manejar Las transacciones en la blockchain.
+ * Manager encargado de manejar las transacciones en la blockchain.
  */
 class TransactionsManager {
 

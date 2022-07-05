@@ -9,6 +9,7 @@ class UserService {
     this.feathersClient = commonsContext.feathersClient;
     this.userIpfsConnector = commonsContext.userIpfsConnector;
     this.adminContractApi = commonsContext.adminContractApi;
+    this.messageManager = commonsContext.messageManager;
   }
 
   /**
@@ -29,16 +30,16 @@ class UserService {
           await this.feathersClient.getClient().service('users').create(user.toFeathers());
           // Nuevo usuario     
           user.registered = true;
-          /*messageUtils.addMessageSuccess({
+          this.messageManager.addMessageSuccess({
             title: `Bienvenido`,
             text: `Su perfil ha sido registrado.`
-          });*/
+          });
         } else {
           // Actualización de usuario
           await this.feathersClient.getClient().service('users').update(user.address, user.toFeathers());
-          /*messageUtils.addMessageSuccess({
+          this.messageManager.addMessageSuccess({
             text: `Su perfil ha sido actualizado.`
-          });*/
+          });
         }
 
         subscriber.next(user);
@@ -46,10 +47,10 @@ class UserService {
       } catch (error) {
         console.error('[User Service] Error almacenando usuario.', error);
         subscriber.error(error);
-        /*messageUtils.addMessageError({
+        this.messageManager.addMessageError({
           text: `Se produjo un error almacenando el perfil del usuario.`,
           error: error
-        });*/
+        });
       }
     });
   }
