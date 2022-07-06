@@ -21,18 +21,6 @@ Object.defineProperty(exports, "AuthService", {
     return _AuthService.default;
   }
 });
-Object.defineProperty(exports, "Badge", {
-  enumerable: true,
-  get: function get() {
-    return _Badge.default;
-  }
-});
-Object.defineProperty(exports, "Button", {
-  enumerable: true,
-  get: function get() {
-    return _Button.default;
-  }
-});
 Object.defineProperty(exports, "ERC20ContractApi", {
   enumerable: true,
   get: function get() {
@@ -61,6 +49,12 @@ Object.defineProperty(exports, "ImageResizer", {
   enumerable: true,
   get: function get() {
     return _ImageResizer.default;
+  }
+});
+Object.defineProperty(exports, "InputField", {
+  enumerable: true,
+  get: function get() {
+    return _InputField.default;
   }
 });
 Object.defineProperty(exports, "IpfsService", {
@@ -128,9 +122,7 @@ var _Wallet = _interopRequireDefault(require("./models/Wallet"));
 
 var _User = _interopRequireDefault(require("./models/User"));
 
-var _Badge = _interopRequireDefault(require("./components/Badge"));
-
-var _Button = _interopRequireDefault(require("./components/Button"));
+var _InputField = _interopRequireDefault(require("./components/InputField"));
 
 var _UserService = _interopRequireDefault(require("./services/UserService"));
 

@@ -1,8 +1,7 @@
 import Wallet from './models/Wallet'
 import User from './models/User'
 
-import Badge from './components/Badge';
-import Button from './components/Button';
+import InputField from './components/InputField';
 
 import UserService from './services/UserService'
 import AuthService from './services/AuthService'
@@ -27,10 +26,11 @@ import AdminContractApi from './blockchain/api/AdminContractApi';
 import Web3Utils from './blockchain/utils/Web3Utils';
 
 export {
+
+    InputField,
+    
     Wallet,
     User,
-    Badge,
-    Button,
 
     FeathersClient,
     FeathersUsersClient,
