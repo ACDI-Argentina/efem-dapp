@@ -2,6 +2,7 @@ import Wallet from './models/Wallet'
 import User from './models/User'
 
 import InputField from './components/InputField';
+import OnlyRole from './components/OnlyRole';
 
 import UserService from './services/UserService'
 import AuthService from './services/AuthService'
@@ -17,6 +18,7 @@ import FeathersClient from './clients/FeathersClient';
 import FeathersUsersClient from './clients/FeathersUsersClient';
 
 import Web3Manager from './managers/Web3Manager';
+import NetworkManager from './managers/NetworkManager';
 import AccountManager from './managers/AccountManager';
 import TransactionsManager from './managers/TransactionsManager';
 import MessageManager from './managers/MessageManager';
@@ -28,6 +30,7 @@ import Web3Utils from './blockchain/utils/Web3Utils';
 export {
 
     InputField,
+    OnlyRole,
     
     Wallet,
     User,
@@ -46,6 +49,7 @@ export {
     ValidatorUtils,
 
     Web3Manager,
+    NetworkManager,
     AccountManager,
     TransactionsManager,
     MessageManager,

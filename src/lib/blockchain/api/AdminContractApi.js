@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs'
 import { AdminAbi } from '@acdi/efem-contract'
+import Role from '../../models/Role';
 
 /**
  * API encargada de la interacción con el Admin Smart Contract.
@@ -31,11 +32,12 @@ class AdminContractApi {
                     role.app,
                     role.hash).call();
                 if (hasUserRole === true) {
-                    userRoles.push(role);
+                    userRoles.push(new Role(role));
                 }
             }
         } catch (err) {
             console.error(`[Admin Contract API] Error obteniendo roles del usuario ${user.address}.`, err);
+            console.error('[Admin Contract API] Roles.', this.config.roles);
         }
         return userRoles;
     }

@@ -19,7 +19,7 @@ var _bignumber = _interopRequireDefault(require("bignumber.js"));
 
 var _StatusUtils = _interopRequireDefault(require("../utils/StatusUtils"));
 
-var _configuration = _interopRequireDefault(require("configuration"));
+var _Role = _interopRequireDefault(require("./Role"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -66,7 +66,7 @@ class User {
       this._avatar = avatar;
       this._email = email;
       this._url = url;
-      this._roles = roles;
+      this._roles = roles.map(r => new _Role.default(r));
       this._balance = balance;
       this._tokenBalances = tokenBalances;
       this._registered = registered;
@@ -104,7 +104,7 @@ class User {
       name: this._name,
       email: this._email,
       url: this._url,
-      roles: this._roles,
+      roles: this._roles.map(r => r.toStore()),
       balance: this._balance,
       tokenBalances: this._tokenBalances,
       authenticated: this._authenticated,
@@ -257,18 +257,6 @@ class User {
 
   set status(value) {
     this._status = value;
-  }
-
-  isAdmin() {
-    return this.hasRole(_configuration.default.ADMIN_ROLE);
-  }
-
-  isAvaldao() {
-    return this.hasRole(_configuration.default.AVALDAO_ROLE);
-  }
-
-  isSolicitante() {
-    return this.hasRole(_configuration.default.SOLICITANTE_ROLE);
   }
 
   hasRole(role) {

@@ -69,6 +69,18 @@ Object.defineProperty(exports, "MessageManager", {
     return _MessageManager.default;
   }
 });
+Object.defineProperty(exports, "NetworkManager", {
+  enumerable: true,
+  get: function get() {
+    return _NetworkManager.default;
+  }
+});
+Object.defineProperty(exports, "OnlyRole", {
+  enumerable: true,
+  get: function get() {
+    return _OnlyRole.default;
+  }
+});
 Object.defineProperty(exports, "TransactionsManager", {
   enumerable: true,
   get: function get() {
@@ -124,6 +136,8 @@ var _User = _interopRequireDefault(require("./models/User"));
 
 var _InputField = _interopRequireDefault(require("./components/InputField"));
 
+var _OnlyRole = _interopRequireDefault(require("./components/OnlyRole"));
+
 var _UserService = _interopRequireDefault(require("./services/UserService"));
 
 var _AuthService = _interopRequireDefault(require("./services/AuthService"));
@@ -143,6 +157,8 @@ var _FeathersClient = _interopRequireDefault(require("./clients/FeathersClient")
 var _FeathersUsersClient = _interopRequireDefault(require("./clients/FeathersUsersClient"));
 
 var _Web3Manager = _interopRequireDefault(require("./managers/Web3Manager"));
+
+var _NetworkManager = _interopRequireDefault(require("./managers/NetworkManager"));
 
 var _AccountManager = _interopRequireDefault(require("./managers/AccountManager"));
 

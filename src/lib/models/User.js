@@ -2,7 +2,7 @@ import { cleanIpfsPath } from '../utils/Utils';
 import BigNumber from 'bignumber.js';
 import StatusUtils from '../utils/StatusUtils';
 //import ipfsService from '../ipfs/IpfsService';
-import config from 'configuration';
+import Role from './Role';
 
 /**
  * Modelo de User en Dapp.
@@ -45,7 +45,7 @@ class User {
       this._avatar = avatar;
       this._email = email;
       this._url = url;
-      this._roles = roles;
+      this._roles = roles.map(r => new Role(r));
       this._balance = balance;
       this._tokenBalances = tokenBalances;
       this._registered = registered;
@@ -82,7 +82,7 @@ class User {
       name: this._name,
       email: this._email,
       url: this._url,
-      roles: this._roles,
+      roles: this._roles.map(r => r.toStore()),
       balance: this._balance,
       tokenBalances: this._tokenBalances,
       authenticated: this._authenticated,
@@ -232,18 +232,6 @@ class User {
 
   set status(value) {
     this._status = value;
-  }
-
-  isAdmin() {
-    return this.hasRole(config.ADMIN_ROLE);
-  }
-
-  isAvaldao() {
-    return this.hasRole(config.AVALDAO_ROLE);
-  }
-
-  isSolicitante() {
-    return this.hasRole(config.SOLICITANTE_ROLE);
   }
 
   hasRole(role) {

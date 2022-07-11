@@ -13,6 +13,10 @@ var _rxjs = require("rxjs");
 
 var _efemContract = require("@acdi/efem-contract");
 
+var _Role = _interopRequireDefault(require("../../models/Role"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /**
@@ -30,11 +34,12 @@ class AdminContractApi {
           const hasUserRole = await this.admin.methods.hasUserRole(user.address, role.app, role.hash).call();
 
           if (hasUserRole === true) {
-            userRoles.push(role);
+            userRoles.push(new _Role.default(role));
           }
         }
       } catch (err) {
         console.error("[Admin Contract API] Error obteniendo roles del usuario ".concat(user.address, "."), err);
+        console.error('[Admin Contract API] Roles.', this.config.roles);
       }
 
       return userRoles;
