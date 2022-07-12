@@ -57,17 +57,17 @@ class Transaction {
     };
   }
 
-  submit(hash) {
+  submit = (hash) => {
     this.hash = hash;
     this.status = Transaction.PENDING;
     this.submittedTime = Date.now();
   }
 
-  confirme() {
+  confirme = () => {
     this.status = Transaction.CONFIRMED;
   }
 
-  fail() {
+  fail = () => {
     this.status = Transaction.FAILURED;
   }
 
@@ -150,7 +150,7 @@ class Transaction {
   set createdTitle(value) {
     this._createdTitle = value;
   }
-  
+
   get createdSubtitle() {
     return this._createdSubtitle;
   }

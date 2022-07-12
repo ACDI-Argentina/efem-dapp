@@ -38,8 +38,9 @@ class TransactionsManager {
       failuredDescription: failuredDescription
     });
     let transactions = this.transactionsSubject.getValue();
-    transactions.put(transaction);
+    transactions.push(transaction);
     this.transactionsSubject.next(transactions);
+    return transaction;
   }
 
   updateTransaction = (transaction) => {
@@ -49,6 +50,7 @@ class TransactionsManager {
       transactions[index] = transaction;
       this.transactionsSubject.next(transactions);
     }
+    return transaction;
   }
 
   getTransactions() {

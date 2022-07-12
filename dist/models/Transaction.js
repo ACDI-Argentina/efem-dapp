@@ -11,6 +11,8 @@ var _StatusUtils = _interopRequireDefault(require("../utils/StatusUtils"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 /**
  * Representa una transacción en la blockchain de la Dapp.
  */
@@ -18,7 +20,7 @@ class Transaction {
   constructor() {
     let {
       clientId = (0, _toolkit.nanoid)(),
-      hash,
+      hash: _hash,
       gasEstimated,
       gasPrice,
       submittedTime,
@@ -31,8 +33,23 @@ class Transaction {
       failuredDescription,
       status = Transaction.CREATED.toStore()
     } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _defineProperty(this, "submit", hash => {
+      this.hash = hash;
+      this.status = Transaction.PENDING;
+      this.submittedTime = Date.now();
+    });
+
+    _defineProperty(this, "confirme", () => {
+      this.status = Transaction.CONFIRMED;
+    });
+
+    _defineProperty(this, "fail", () => {
+      this.status = Transaction.FAILURED;
+    });
+
     this._clientId = clientId;
-    this._hash = hash;
+    this._hash = _hash;
     this._gasEstimated = gasEstimated;
     this._gasPrice = gasPrice;
     this._submittedTime = submittedTime;
@@ -66,20 +83,6 @@ class Transaction {
       failuredDescription: this._failuredDescription,
       status: this._status.toStore()
     };
-  }
-
-  submit(hash) {
-    this.hash = hash;
-    this.status = Transaction.PENDING;
-    this.submittedTime = Date.now();
-  }
-
-  confirme() {
-    this.status = Transaction.CONFIRMED;
-  }
-
-  fail() {
-    this.status = Transaction.FAILURED;
   }
 
   static get CREATED() {
