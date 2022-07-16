@@ -7,10 +7,6 @@ exports.default = void 0;
 
 require("core-js/modules/web.dom-collections.iterator.js");
 
-require("core-js/modules/es.array.includes.js");
-
-require("core-js/modules/es.string.includes.js");
-
 require("core-js/modules/es.string.trim.js");
 
 var _Utils = require("../utils/Utils");
@@ -264,15 +260,7 @@ class User {
   }
 
   hasAnyRoles(roles) {
-    //roles should be an array
-    let found = false;
-
-    for (const wanted of roles) {
-      found = this.roles.includes(wanted);
-      if (found) break;
-    }
-
-    return found;
+    return roles.some(r => this.hasRole(r));
   }
 
   hasCompleteProfile() {

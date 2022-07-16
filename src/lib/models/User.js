@@ -1,4 +1,4 @@
-import { cleanIpfsPath } from '../utils/Utils';
+//import { cleanIpfsPath } from '../utils/Utils';
 import BigNumber from 'bignumber.js';
 import StatusUtils from '../utils/StatusUtils';
 //import ipfsService from '../ipfs/IpfsService';
@@ -56,7 +56,8 @@ class User {
 
   toIpfs() {
     return {
-      avatarCid: cleanIpfsPath(this._avatarCid)
+      //avatarCid: cleanIpfsPath(this._avatarCid)
+      avatarCid: this._avatarCid
     };
   }
 
@@ -238,13 +239,8 @@ class User {
     return this.roles.some(r => r.value === role);
   }
 
-  hasAnyRoles(roles) { //roles should be an array
-    let found = false;
-    for (const wanted of roles) {
-      found = this.roles.includes(wanted);
-      if (found) break;
-    }
-    return found;
+  hasAnyRoles(roles) {
+    return roles.some(r => this.hasRole(r));
   }
 
   hasCompleteProfile() {
