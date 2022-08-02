@@ -1,6 +1,5 @@
 import { BehaviorSubject } from 'rxjs'
-import Account from 'models/Account';
-import config from 'configuration';
+import Account from '../models/Account';
 import BigNumber from 'bignumber.js';
 
 /**
@@ -9,6 +8,7 @@ import BigNumber from 'bignumber.js';
 class AccountManager {
 
   constructor(commonsContext) {
+    this.config = commonsContext.config;
     this.erc20ContractApi = commonsContext.erc20ContractApi;
     this.web3Manager = commonsContext.web3Manager;
     this.accountSubject = new BehaviorSubject(new Account());
@@ -30,7 +30,7 @@ class AccountManager {
       account.address = accountAddress;
       this.accountSubject.next(account);
       await this.updateAccountBalances(accountAddress);
-    }    
+    }
   }
 
   /**
@@ -50,19 +50,19 @@ class AccountManager {
       // Solo se actualiza si cambió el balance.
       if (!balance.isEqualTo(account.balance)) {
         account.balance = balance;
-        account.tokenBalances[config.nativeToken.address] = balance;
+        account.tokenBalances[this.config.nativeToken.address] = balance;
         changed = true;
-        console.log('[Account] Nuevo balance.', config.nativeToken.address, balance);
+        console.log('[Account] Nuevo balance.', this.config.nativeToken.address, balance);
       }
     } catch (error) {
       console.error("[Account] Error al obtener el balance nativo.", error);
     }
 
     // Se obtienen los balances de cada ERC20 token.        
-    Object.keys(config.tokens).map(async tokenKey => {
+    Object.keys(this.config.tokens).map(async tokenKey => {
       try {
-        if (config.tokens[tokenKey].isNative === false) {
-          let tokenAddress = config.tokens[tokenKey].address;
+        if (this.config.tokens[tokenKey].isNative === false) {
+          let tokenAddress = this.config.tokens[tokenKey].address;
           let tokenBalance = await this.erc20ContractApi.getBalance(tokenAddress, accountAddress);
           // Solo se actualiza si cambió el balance.
           if (!tokenBalance.isEqualTo(account.tokenBalances[tokenAddress])) {
@@ -72,7 +72,7 @@ class AccountManager {
           }
         }
       } catch (e) {
-        console.error('[Account] Error obteniendo balance de ERC Token.', config.tokens[tokenKey], e);
+        console.error('[Account] Error obteniendo balance de ERC Token.', this.config.tokens[tokenKey], e);
       }
     });
 

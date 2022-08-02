@@ -11,6 +11,8 @@ require("core-js/modules/es.string.match.js");
 
 require("core-js/modules/es.regexp.test.js");
 
+require("core-js/modules/es.string.replace.js");
+
 require("core-js/modules/es.regexp.constructor.js");
 
 require("core-js/modules/es.regexp.to-string.js");
@@ -41,6 +43,17 @@ class ValidatorUtils {
       }
 
       return false;
+    });
+
+    _defineProperty(this, "htmlHasText", htmlText => {
+      if (htmlText === null || htmlText === undefined || htmlText === '') {
+        return false;
+      } // Regular expression to identify HTML tags in 
+      // the input string. Replacing the identified 
+      // HTML tag with a null string.
+
+
+      return htmlText.replace(/(<([^>]+)>)/ig, '') !== '';
     });
 
     this.EMAIL_PATTERN = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

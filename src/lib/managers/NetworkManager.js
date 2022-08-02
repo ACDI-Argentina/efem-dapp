@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs'
-import Network from 'models/Network';
+import Network from '../models/Network';
 
 /**
  * Manager encargado de manejar el objeto Web3.

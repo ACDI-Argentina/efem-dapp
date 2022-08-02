@@ -9,8 +9,6 @@ require("core-js/modules/web.dom-collections.iterator.js");
 
 require("core-js/modules/es.string.trim.js");
 
-var _Utils = require("../utils/Utils");
-
 var _bignumber = _interopRequireDefault(require("bignumber.js"));
 
 var _StatusUtils = _interopRequireDefault(require("../utils/StatusUtils"));
@@ -19,6 +17,7 @@ var _Role = _interopRequireDefault(require("./Role"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//import { cleanIpfsPath } from '../utils/Utils';
 //import ipfsService from '../ipfs/IpfsService';
 
 /**
@@ -73,7 +72,8 @@ class User {
 
   toIpfs() {
     return {
-      avatarCid: (0, _Utils.cleanIpfsPath)(this._avatarCid)
+      //avatarCid: cleanIpfsPath(this._avatarCid)
+      avatarCid: this._avatarCid
     };
   }
 

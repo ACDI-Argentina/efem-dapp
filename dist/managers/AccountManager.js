@@ -9,9 +9,7 @@ require("core-js/modules/es.promise.js");
 
 var _rxjs = require("rxjs");
 
-var _Account = _interopRequireDefault(require("models/Account"));
-
-var _configuration = _interopRequireDefault(require("configuration"));
+var _Account = _interopRequireDefault(require("../models/Account"));
 
 var _bignumber = _interopRequireDefault(require("bignumber.js"));
 
@@ -48,19 +46,19 @@ class AccountManager {
 
         if (!balance.isEqualTo(account.balance)) {
           account.balance = balance;
-          account.tokenBalances[_configuration.default.nativeToken.address] = balance;
+          account.tokenBalances[this.config.nativeToken.address] = balance;
           changed = true;
-          console.log('[Account] Nuevo balance.', _configuration.default.nativeToken.address, balance);
+          console.log('[Account] Nuevo balance.', this.config.nativeToken.address, balance);
         }
       } catch (error) {
         console.error("[Account] Error al obtener el balance nativo.", error);
       } // Se obtienen los balances de cada ERC20 token.        
 
 
-      Object.keys(_configuration.default.tokens).map(async tokenKey => {
+      Object.keys(this.config.tokens).map(async tokenKey => {
         try {
-          if (_configuration.default.tokens[tokenKey].isNative === false) {
-            let tokenAddress = _configuration.default.tokens[tokenKey].address;
+          if (this.config.tokens[tokenKey].isNative === false) {
+            let tokenAddress = this.config.tokens[tokenKey].address;
             let tokenBalance = await this.erc20ContractApi.getBalance(tokenAddress, accountAddress); // Solo se actualiza si cambió el balance.
 
             if (!tokenBalance.isEqualTo(account.tokenBalances[tokenAddress])) {
@@ -70,7 +68,7 @@ class AccountManager {
             }
           }
         } catch (e) {
-          console.error('[Account] Error obteniendo balance de ERC Token.', _configuration.default.tokens[tokenKey], e);
+          console.error('[Account] Error obteniendo balance de ERC Token.', this.config.tokens[tokenKey], e);
         }
       });
 
@@ -79,6 +77,7 @@ class AccountManager {
       }
     });
 
+    this.config = commonsContext.config;
     this.erc20ContractApi = commonsContext.erc20ContractApi;
     this.web3Manager = commonsContext.web3Manager;
     this.accountSubject = new _rxjs.BehaviorSubject(new _Account.default());

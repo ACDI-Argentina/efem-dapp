@@ -26,10 +26,10 @@ class ValidatorUtils {
   }
 
   /**
-  * Valida que la url sea válida.
-  * 
-  * @param url a validar
-  */
+   * Valida que la url sea válida.
+   * 
+   * @param url a validar
+   */
   isValidUrl = (url) => {
     if (!url) {
       return false;
@@ -38,6 +38,24 @@ class ValidatorUtils {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Valida si el texto HTML tiene contenido de texto o no.
+   * 
+   * @param htmlText a validar
+   */
+  htmlHasText = (htmlText) => {
+    if (htmlText === null ||
+      htmlText === undefined ||
+      htmlText === '') {
+      return false;
+    }
+
+    // Regular expression to identify HTML tags in 
+    // the input string. Replacing the identified 
+    // HTML tag with a null string.
+    return htmlText.replace(/(<([^>]+)>)/ig, '') !== '';
   }
 }
 

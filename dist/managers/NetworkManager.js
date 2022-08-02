@@ -7,7 +7,7 @@ exports.default = void 0;
 
 var _rxjs = require("rxjs");
 
-var _Network = _interopRequireDefault(require("models/Network"));
+var _Network = _interopRequireDefault(require("../models/Network"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
