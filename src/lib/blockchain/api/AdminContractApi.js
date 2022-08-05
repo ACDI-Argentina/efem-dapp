@@ -10,10 +10,14 @@ class AdminContractApi {
     constructor(commonsContext) {
         this.config = commonsContext.config;
         this.web3Manager = commonsContext.web3Manager;
-        this.transactionsManager = commonsContext.transactionsManager;
+        this.accountManager = commonsContext.accountManager;
+        this.transactionManager = commonsContext.transactionManager;
         this.web3Manager.getWeb3().subscribe(web3 => {
             this.web3 = web3;
             this.updateContracts();
+        });
+        this.accountManager.getAccount().subscribe(account => {
+            this.account = account;
         });
     }
 
@@ -47,10 +51,16 @@ class AdminContractApi {
      *  
      * @param user sobre el cual se establecen los roles.
      */
-    setUserRoles = (currentUser, user, rolesToAdd, rolesToRemove) => {
+    setUserRoles = (user, rolesToAdd, rolesToRemove) => {
 
         return new Observable(async subscriber => {
 
+            if(!this.account.address) {
+                subscriber.error("[Admin Contract API] No existe cuenta para ejecutar la transacción.");
+                return;
+            }            
+
+            console.log('user, rolesToAdd, rolesToRemove', user, rolesToAdd, rolesToRemove);
             const method = this.admin.methods.setUserRoles(
                 user.address,
                 rolesToAdd.map(r => r.hash),
@@ -58,10 +68,10 @@ class AdminContractApi {
                 rolesToRemove.map(r => r.hash),
                 rolesToRemove.map(r => r.app));
 
-            const gasEstimated = await this.estimateGas(method, currentUser.address);
+            const gasEstimated = await this.estimateGas(method, this.account.address);
             const gasPrice = await this.getGasPrice();
 
-            let transaction = this.transactionsManager.addTransaction({
+            let transaction = this.transactionManager.addTransaction({
                 gasEstimated: gasEstimated,
                 gasPrice: gasPrice,
                 createdTitle: {
@@ -88,20 +98,20 @@ class AdminContractApi {
             });
 
             const promiEvent = method.send({
-                from: currentUser.address
+                from: this.account.address
             });
 
             promiEvent.once('transactionHash', (hash) => { // La transacción ha sido creada.
 
                 transaction.submit(hash);
-                this.transactionsManager.updateTransaction(transaction);
+                this.transactionManager.updateTransaction(transaction);
 
                 subscriber.next(user);
 
             }).once('confirmation', (confNumber, receipt) => {
 
                 transaction.confirme();
-                this.transactionsManager.updateTransaction(transaction);
+                this.transactionManager.updateTransaction(transaction);
 
                 // La transacción ha sido incluida en un bloque sin bloques de confirmación (once).                        
                 // TODO Aquí debería agregarse lógica para esperar un número determinado de bloques confirmados (on, confNumber).
@@ -115,7 +125,7 @@ class AdminContractApi {
             }).on('error', function (error) {
 
                 transaction.fail();
-                this.transactionsManager.updateTransaction(transaction);
+                //this.transactionManager.updateTransaction(transaction);
 
                 error.user = user;
                 console.error(`Error procesando transacción para configurar roles de usuario.`, error);

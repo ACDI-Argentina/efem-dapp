@@ -45,12 +45,18 @@ class AdminContractApi {
       return userRoles;
     });
 
-    _defineProperty(this, "setUserRoles", (currentUser, user, rolesToAdd, rolesToRemove) => {
+    _defineProperty(this, "setUserRoles", (user, rolesToAdd, rolesToRemove) => {
       return new _rxjs.Observable(async subscriber => {
+        if (!this.account.address) {
+          subscriber.error("[Admin Contract API] No existe cuenta para ejecutar la transacción.");
+          return;
+        }
+
+        console.log('user, rolesToAdd, rolesToRemove', user, rolesToAdd, rolesToRemove);
         const method = this.admin.methods.setUserRoles(user.address, rolesToAdd.map(r => r.hash), rolesToAdd.map(r => r.app), rolesToRemove.map(r => r.hash), rolesToRemove.map(r => r.app));
-        const gasEstimated = await this.estimateGas(method, currentUser.address);
+        const gasEstimated = await this.estimateGas(method, this.account.address);
         const gasPrice = await this.getGasPrice();
-        let transaction = this.transactionsManager.addTransaction({
+        let transaction = this.transactionManager.addTransaction({
           gasEstimated: gasEstimated,
           gasPrice: gasPrice,
           createdTitle: {
@@ -76,16 +82,16 @@ class AdminContractApi {
           }
         });
         const promiEvent = method.send({
-          from: currentUser.address
+          from: this.account.address
         });
         promiEvent.once('transactionHash', hash => {
           // La transacción ha sido creada.
           transaction.submit(hash);
-          this.transactionsManager.updateTransaction(transaction);
+          this.transactionManager.updateTransaction(transaction);
           subscriber.next(user);
         }).once('confirmation', (confNumber, receipt) => {
           transaction.confirme();
-          this.transactionsManager.updateTransaction(transaction); // La transacción ha sido incluida en un bloque sin bloques de confirmación (once).                        
+          this.transactionManager.updateTransaction(transaction); // La transacción ha sido incluida en un bloque sin bloques de confirmación (once).                        
           // TODO Aquí debería agregarse lógica para esperar un número determinado de bloques confirmados (on, confNumber).
           //const avalIdEvent = receipt.events['SaveAval'].returnValues.id;
           // Se instruye al store para obtener el aval actualizado.
@@ -93,8 +99,8 @@ class AdminContractApi {
 
           subscriber.next(user);
         }).on('error', function (error) {
-          transaction.fail();
-          this.transactionsManager.updateTransaction(transaction);
+          transaction.fail(); //this.transactionManager.updateTransaction(transaction);
+
           error.user = user;
           console.error("Error procesando transacci\xF3n para configurar roles de usuario.", error);
           subscriber.error(error);
@@ -104,10 +110,14 @@ class AdminContractApi {
 
     this.config = commonsContext.config;
     this.web3Manager = commonsContext.web3Manager;
-    this.transactionsManager = commonsContext.transactionsManager;
+    this.accountManager = commonsContext.accountManager;
+    this.transactionManager = commonsContext.transactionManager;
     this.web3Manager.getWeb3().subscribe(web3 => {
       this.web3 = web3;
       this.updateContracts();
+    });
+    this.accountManager.getAccount().subscribe(account => {
+      this.account = account;
     });
   }
   /**

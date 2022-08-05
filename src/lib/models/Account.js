@@ -12,8 +12,7 @@ class Account {
 
   constructor(data = {}) {
     const {
-      address = null,
-      
+      address = null,      
       balance = new BigNumber(0),
       tokenBalances = Map()
     } = data;

@@ -148,14 +148,6 @@ class User {
     this._avatar = value;
   }
 
-  /**
-   * Obtiene la URL completa del avatar.
-   */
-  get avatarCidUrl() {
-    //return ipfsService.resolveUrl(this._avatarCid)
-    return 'REVISAR COMO IMPLEMENTAR ESTA INTEGRACION CON IPFS';
-  }
-
   get email() {
     return this._email;
   }

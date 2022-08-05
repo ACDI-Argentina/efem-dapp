@@ -107,6 +107,12 @@ Object.defineProperty(exports, "Role", {
     return _Role.default;
   }
 });
+Object.defineProperty(exports, "RoleChip", {
+  enumerable: true,
+  get: function get() {
+    return _RoleChip.default;
+  }
+});
 Object.defineProperty(exports, "Severity", {
   enumerable: true,
   get: function get() {
@@ -213,6 +219,8 @@ var _ExchangeRate = _interopRequireDefault(require("./models/ExchangeRate"));
 var _InputField = _interopRequireDefault(require("./components/InputField"));
 
 var _OnlyRole = _interopRequireDefault(require("./components/OnlyRole"));
+
+var _RoleChip = _interopRequireDefault(require("./components/RoleChip"));
 
 var _UserService = _interopRequireDefault(require("./services/UserService"));
 
