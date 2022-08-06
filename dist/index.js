@@ -35,6 +35,12 @@ Object.defineProperty(exports, "ERC20ContractApi", {
     return _ERC20ContractApi.default;
   }
 });
+Object.defineProperty(exports, "ErrorBoundary", {
+  enumerable: true,
+  get: function get() {
+    return _ErrorBoundary.default;
+  }
+});
 Object.defineProperty(exports, "ExchangeRate", {
   enumerable: true,
   get: function get() {
@@ -221,6 +227,8 @@ var _InputField = _interopRequireDefault(require("./components/InputField"));
 var _OnlyRole = _interopRequireDefault(require("./components/OnlyRole"));
 
 var _RoleChip = _interopRequireDefault(require("./components/RoleChip"));
+
+var _ErrorBoundary = _interopRequireDefault(require("./components/ErrorBoundary"));
 
 var _UserService = _interopRequireDefault(require("./services/UserService"));
 

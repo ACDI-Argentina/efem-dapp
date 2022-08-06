@@ -12,6 +12,7 @@ import ExchangeRate from './models/ExchangeRate'
 import InputField from './components/InputField'
 import OnlyRole from './components/OnlyRole'
 import RoleChip from './components/RoleChip'
+import ErrorBoundary from './components/ErrorBoundary'
 
 import UserService from './services/UserService'
 import AuthService from './services/AuthService'
@@ -43,6 +44,7 @@ export {
     InputField,
     OnlyRole,
     RoleChip,
+    ErrorBoundary,
 
     User,
     Role,
