@@ -8,6 +8,7 @@ import Transaction from './models/Transaction'
 import Status from './models/Status'
 import Message, { Severity } from './models/Message'
 import ExchangeRate from './models/ExchangeRate'
+import TokenBalance from './models/TokenBalance'
 
 import InputField from './components/InputField'
 import OnlyRole from './components/OnlyRole'
@@ -56,6 +57,7 @@ export {
     Message,
     Severity,
     ExchangeRate,
+    TokenBalance,
 
     FeathersClient,
     FeathersUsersClient,
