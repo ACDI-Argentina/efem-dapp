@@ -21,7 +21,7 @@ var _web3Provider = _interopRequireDefault(require("@walletconnect/web3-provider
 
 var _rxjs = require("rxjs");
 
-var _IpfsService = _interopRequireDefault(require("../services/IpfsService"));
+var _IpfsService = _interopRequireDefault(require("../ipfs/IpfsService"));
 
 var _Wallet = _interopRequireDefault(require("../models/Wallet"));
 

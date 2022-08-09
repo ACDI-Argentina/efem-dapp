@@ -3,7 +3,7 @@ import Web3HttpProvider from 'web3-providers-http'
 import Web3Modal, { getProviderInfo } from 'web3modal'
 import WalletConnectProvider from "@walletconnect/web3-provider"
 import { BehaviorSubject } from 'rxjs'
-import IpfsService from '../services/IpfsService'
+import IpfsService from '../ipfs/IpfsService'
 import Wallet from '../models/Wallet'
 import { history } from '../utils/History'
 

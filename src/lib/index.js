@@ -33,7 +33,6 @@ import Web3Manager from './managers/Web3Manager'
 import NetworkManager from './managers/NetworkManager'
 import AccountManager from './managers/AccountManager'
 import TransactionManager from './managers/TransactionManager'
-import TransactionsManager from './managers/TransactionsManager'
 import MessageManager from './managers/MessageManager'
 
 import ERC20ContractApi from './blockchain/api/ERC20ContractApi'
@@ -77,7 +76,6 @@ export {
     NetworkManager,
     AccountManager,
     TransactionManager,
-    TransactionsManager,
     MessageManager,
 
     ERC20ContractApi,

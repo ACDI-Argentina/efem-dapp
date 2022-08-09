@@ -31,7 +31,9 @@ class AccountManager {
         let account = this.accountSubject.getValue();
         account.address = accountAddress;
         this.accountSubject.next(account);
-        await this.updateAccountBalances(accountAddress);
+        setTimeout(async () => {
+          await this.updateAccountBalances(accountAddress);
+        }, 3000);
       }
     });
 

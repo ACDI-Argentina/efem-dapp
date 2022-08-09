@@ -137,6 +137,12 @@ Object.defineProperty(exports, "StatusUtils", {
     return _StatusUtils.default;
   }
 });
+Object.defineProperty(exports, "TokenBalance", {
+  enumerable: true,
+  get: function get() {
+    return _TokenBalance.default;
+  }
+});
 Object.defineProperty(exports, "Transaction", {
   enumerable: true,
   get: function get() {
@@ -147,12 +153,6 @@ Object.defineProperty(exports, "TransactionManager", {
   enumerable: true,
   get: function get() {
     return _TransactionManager.default;
-  }
-});
-Object.defineProperty(exports, "TransactionsManager", {
-  enumerable: true,
-  get: function get() {
-    return _TransactionsManager.default;
   }
 });
 Object.defineProperty(exports, "User", {
@@ -222,6 +222,8 @@ var _Message = _interopRequireWildcard(require("./models/Message"));
 
 var _ExchangeRate = _interopRequireDefault(require("./models/ExchangeRate"));
 
+var _TokenBalance = _interopRequireDefault(require("./models/TokenBalance"));
+
 var _InputField = _interopRequireDefault(require("./components/InputField"));
 
 var _OnlyRole = _interopRequireDefault(require("./components/OnlyRole"));
@@ -257,8 +259,6 @@ var _NetworkManager = _interopRequireDefault(require("./managers/NetworkManager"
 var _AccountManager = _interopRequireDefault(require("./managers/AccountManager"));
 
 var _TransactionManager = _interopRequireDefault(require("./managers/TransactionManager"));
-
-var _TransactionsManager = _interopRequireDefault(require("./managers/TransactionsManager"));
 
 var _MessageManager = _interopRequireDefault(require("./managers/MessageManager"));
 

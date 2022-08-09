@@ -11,7 +11,7 @@ class ERC20ContractApi {
 
     constructor(commonsContext) {
         this.web3Manager = commonsContext.web3Manager;
-        this.transactionsManager = commonsContext.transactionsManager;        
+        this.transactionManager = commonsContext.transactionManager;        
         this.web3Manager.getWeb3().subscribe(web3 => {
             this.web3 = web3;
         });
@@ -44,7 +44,7 @@ class ERC20ContractApi {
             const gasEstimated = await this.estimateGas(method, senderAddress);
             const gasPrice = await this.getGasPrice();
 
-            let transaction = this.transactionsManager.addTransaction({
+            let transaction = this.transactionManager.addTransaction({
                 gasEstimated: gasEstimated,
                 gasPrice: gasPrice,
                 createdTitle: {
@@ -73,7 +73,7 @@ class ERC20ContractApi {
             const onTransactionHash = async (hash) => { // La transacción ha sido creada.
 
                 transaction.submit(hash);
-                this.transactionsManager.updateTransaction(transaction);
+                this.transactionManager.updateTransaction(transaction);
 
                 // TODO Ver por qué esto está implementado de esta manera, acoplado a Wallet Connect.
 
@@ -96,12 +96,12 @@ class ERC20ContractApi {
 
             const onConfirmation = (confNumber, receipt) => {
                 transaction.confirme();
-                this.transactionsManager.updateTransaction(transaction);
+                this.transactionManager.updateTransaction(transaction);
                 subscriber.next(true);
             }
             const onError = function (error) {
                 transaction.fail();
-                this.transactionsManager.updateTransaction(transaction);
+                this.transactionManager.updateTransaction(transaction);
                 subscriber.next(false);
             }
 
