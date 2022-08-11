@@ -1,6 +1,6 @@
 {
   "name": "@acdi/efem-dapp",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0",
   "description": "Componentes comunes a las dapps de El Futuro está en el Monte.",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -14,7 +14,7 @@
     "url": "https://github.com/ACDI-Argentina/efem-dapp.git"
   },
   "dependencies": {
-    "@acdi/efem-contract": "1.0.0-alpha.2",
+    "@acdi/efem-contract": "1.0.0",
     "@babel/polyfill": "^7.10.1",
     "core-js": "^3.6.4",
     "react": "^18.1.0",
