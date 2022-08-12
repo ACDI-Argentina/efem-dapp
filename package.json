@@ -1,6 +1,6 @@
 {
   "name": "@acdi/efem-dapp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Componentes comunes a las dapps de El Futuro está en el Monte.",
   "main": "dist/index.js",
   "module": "dist/index.js",

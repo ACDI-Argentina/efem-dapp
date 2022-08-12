@@ -27,7 +27,7 @@ class UserService {
           user.infoCid = infoCid;
 
           if (user.registered === false) {
-            await this.feathersClient.getClient().service('users').create(user.toFeathers()); // Nuevo usuario     
+            await this.feathersUsersClient.getClient().service('users').create(user.toFeathers()); // Nuevo usuario     
 
             user.registered = true;
             this.messageManager.addMessageSuccess({
@@ -36,7 +36,7 @@ class UserService {
             });
           } else {
             // Actualización de usuario
-            await this.feathersClient.getClient().service('users').update(user.address, user.toFeathers());
+            await this.feathersUsersClient.getClient().service('users').update(user.address, user.toFeathers());
             this.messageManager.addMessageSuccess({
               text: "Su perfil ha sido actualizado."
             });
@@ -59,7 +59,7 @@ class UserService {
         const users = [];
         const {
           data: usersData
-        } = await this.feathersClient.getClient().service("users").find();
+        } = await this.feathersUsersClient.getClient().service("users").find();
 
         for (let i = 0; i < usersData.length; i++) {
           const user = await this.loadUserByFeathersData(usersData[i]);
@@ -73,7 +73,7 @@ class UserService {
     _defineProperty(this, "loadUserByAddress", address => {
       return new _rxjs.Observable(async subscriber => {
         try {
-          const userData = await this.feathersClient.getClient().service('/users').get(address);
+          const userData = await this.feathersUsersClient.getClient().service('/users').get(address);
           const user = await this.loadUserByFeathersData(userData);
           subscriber.next(user);
         } catch (e) {
@@ -132,7 +132,7 @@ class UserService {
           // Se almacena en IPFS toda la información del Usuario.
           let infoCid = await this.userIpfsConnector.upload(user);
           user.infoCid = infoCid;
-          await this.feathersClient.getClient().service('users').update(user.address, user.toFeathers()); // ---------------------
+          await this.feathersUsersClient.getClient().service('users').update(user.address, user.toFeathers()); // ---------------------
           // Tratamiento de roles.
           // Se obtienen los roles actuales del usuario.
 
@@ -193,7 +193,7 @@ class UserService {
       });
     });
 
-    this.feathersClient = commonsContext.feathersClient;
+    this.feathersUsersClient = commonsContext.feathersUsersClient;
     this.userIpfsConnector = commonsContext.userIpfsConnector;
     this.adminContractApi = commonsContext.adminContractApi;
     this.messageManager = commonsContext.messageManager;

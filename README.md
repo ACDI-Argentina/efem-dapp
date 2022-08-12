@@ -2,4 +2,13 @@
 
 Librería de componentes comunes de las dapps de El Futuro está en el Monte.
 
-https://levelup.gitconnected.com/publish-react-components-as-an-npm-package-7a671a2fb7f
+## Publicar en NPM
+
+Para que el módulo quede públicamente accecible y pueda utilizarse por los demás módulos de la aplicación, es necesario publicarlo de la siguiente manera:
+
+```
+npm login
+npm publish --access public
+```
+
+El módulo se publica con el scope de la organización **@acdi**.
