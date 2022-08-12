@@ -39,7 +39,9 @@ class FeathersUsersClient {
     }));
     this.client.on('authenticated', async auth => {
       try {
-        await this.feathersClient.getClient().authenticate(auth);
+        if (this.feathersClient) {
+          await this.feathersClient.getClient().authenticate(auth);
+        }
       } catch (err) {
         console.error("[Feathers Users Client] Error autenticando Feather Client.", err);
         throw err;
@@ -47,7 +49,9 @@ class FeathersUsersClient {
     });
     this.client.on('logout', async () => {
       try {
-        await this.feathersClient.getClient().logout();
+        if (this.feathersClient) {
+          await this.feathersClient.getClient().logout();
+        }
       } catch (err) {
         console.error("[Feathers Users Client] Error en logout de Feather Client.", err);
         throw err;
