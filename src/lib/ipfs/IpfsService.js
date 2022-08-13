@@ -7,7 +7,12 @@ class IpfsService {
 
   constructor(commonsContext) {
     this.config = commonsContext.config;
-    this.feathersClient = commonsContext.feathersClient;
+    /**
+     * Se utiliza el servicio de usuarios para hacer pinning.
+     * TODO: esto debe mejorarse y cambiar el servicio de usuarios
+     * para que brinde servicios más amplios y comunes.
+     */
+    this.feathersUsersClient = commonsContext.feathersUsersClient;
   }
 
   /**
@@ -39,7 +44,7 @@ class IpfsService {
     }).then(ipfsResponse => {
       let cid = ipfsResponse.headers.get('Ipfs-Hash');
       if (this.config.ipfsPinningEnabled) {
-        return this.feathersClient.getClient().service('/ipfs-pin').create({ cid: cid })
+        return this.feathersUsersClient.getClient().service('/ipfs-pin').create({ cid: cid })
           .then(() => {
             if (ipfsResponse.ok) {
               return `/ipfs/${cid}`;
