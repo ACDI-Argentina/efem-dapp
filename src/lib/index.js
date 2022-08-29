@@ -25,6 +25,7 @@ import { history } from './utils/History'
 import ImageResizer from './utils/ImageResizer'
 import ValidatorUtils from './utils/ValidatorUtils'
 import StatusUtils from './utils/StatusUtils'
+import NavigateAnchor from './utils/NavigateAnchor'
 
 import FeathersClient from './clients/FeathersClient'
 import FeathersUsersClient from './clients/FeathersUsersClient'
@@ -71,6 +72,7 @@ export {
     ImageResizer,
     ValidatorUtils,
     StatusUtils,
+    NavigateAnchor,
 
     Web3Manager,
     NetworkManager,

@@ -89,6 +89,12 @@ Object.defineProperty(exports, "MessageManager", {
     return _MessageManager.default;
   }
 });
+Object.defineProperty(exports, "NavigateAnchor", {
+  enumerable: true,
+  get: function get() {
+    return _NavigateAnchor.default;
+  }
+});
 Object.defineProperty(exports, "Network", {
   enumerable: true,
   get: function get() {
@@ -247,6 +253,8 @@ var _ImageResizer = _interopRequireDefault(require("./utils/ImageResizer"));
 var _ValidatorUtils = _interopRequireDefault(require("./utils/ValidatorUtils"));
 
 var _StatusUtils = _interopRequireDefault(require("./utils/StatusUtils"));
+
+var _NavigateAnchor = _interopRequireDefault(require("./utils/NavigateAnchor"));
 
 var _FeathersClient = _interopRequireDefault(require("./clients/FeathersClient"));
 
