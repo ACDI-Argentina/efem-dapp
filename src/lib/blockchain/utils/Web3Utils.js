@@ -67,7 +67,7 @@ class Web3Utils {
    * 
    */
   toChecksumAddress = (address) => {
-    if (address === null && address === undefined) {
+    if (address == null && address == undefined) {
       return null;
     }
     const chainId = this.config.network.requiredId;
@@ -84,7 +84,7 @@ class Web3Utils {
   }
 
   stripHexPrefix = (address) => {
-    if (address !== undefined && address.startsWith('0x')) {
+    if (address != null && address != undefined && address.startsWith('0x')) {
       return address.slice(2);
     }
     return address;

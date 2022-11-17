@@ -63,7 +63,7 @@ class Web3Utils {
     });
 
     _defineProperty(this, "toChecksumAddress", address => {
-      if (address === null && address === undefined) {
+      if (address == null && address == undefined) {
         return null;
       }
 
@@ -83,7 +83,7 @@ class Web3Utils {
     });
 
     _defineProperty(this, "stripHexPrefix", address => {
-      if (address !== undefined && address.startsWith('0x')) {
+      if (address != null && address != undefined && address.startsWith('0x')) {
         return address.slice(2);
       }
 
